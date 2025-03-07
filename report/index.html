@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landed Valuation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        /* :root {
+            --primary: #ff5722;
+            --primary-dark: #e64a19;
+            --accent: #ff9800;
+            --dark: #002D6C;
+            
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(44, 62, 80, 0.7);
+        } */
+        :root {
+            --primary: #9e6402;
+            --primary-dark: #774d06;
+            --accent: #b48431;
+            --dark: #774d06;
+            /* Updated background color */
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --glass-bg: rgba(44, 62, 80, 0.7);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: url(https://janicez641.sg-host.com/assets/images/landed-bg.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            /* background: radial-gradient(circle, rgba(255, 87, 34, 0.2) 0%, rgba(255, 152, 0, 0.1) 50%, rgba(38, 50, 56, 0) 70%); */
+            background: radial-gradient(circle, #774e065a 0%, #b4843128 50%, #774e0600 70%);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            transition: transform 0.2s ease-out, opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .main-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            /* display: flex; */
+            width: 100%;
+            max-width: 1400px;
+            margin: 40px;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 30px;
+        }
+
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://janicez557.sg-host.com/wp-content/uploads/2024/12/shutterstock_764105278-scaled-1-3.png');
+            background-size: cover;
+            background-position: center;
+            filter: contrast(1.1) brightness(0.7);
+            z-index: -2;
+        }
+
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                    rgba(15, 23, 42, 0.9) 0%,
+                    rgba(15, 23, 42, 0.7) 100%);
+            z-index: -1;
+        }
+
+
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, #fff 0%, var(--text) 80%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        /* table css */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            /* background-color: var(--glass-bg); */
+            color: var(--text);
+            border-radius: 10px;
+        }
+
+        .table {
+            border: 1px solid #8b5f14 !important;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        th {
+            background-image: linear-gradient(180deg, var(--dark), var(--accent));
+            color: var(--text);
+            font-weight: bold;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        td {
+            background-color: transparent;
+            color: var(--text);
+            border-bottom: 1px solid var(--primary);
+        }
+
+        tr:nth-child(even) td {
+            background-color: transparent;
+        }
+
+        tr:nth-child(odd) td {
+            background-color: transparent;
+        }
+
+        tr:hover td {
+            background-color: var(--glass-bg);
+            color: var(--text);
+        }
+
+        .table-main-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        /* table css */
+
+        .select-box select,
+        .search-box input {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 14px 18px;
+            font-size: 1rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3scubic -bezier(0.34, 1.56, 0.64, 1);
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .select-box select:focus {
+            outline: none;
+            border-color: var(--accent);
+            /* margin-top: -5px;
+    margin-bottom: 5px; */
+            box-shadow: 0 0px 8px #b4843129;
+            /* transform: translateY(-5px); */
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--accent);
+            /* margin-top: -5px;
+    margin-bottom: 5px; */
+            box-shadow: 0 0px 8px #b4843129;
+            /* transform: translateY(-5px); */
+        }
+
+        .filter-buttons-box button {
+            background: linear-gradient(130deg, var(--primary-dark) 0%, var(--accent) 100%);
+            color: white;
+            padding: 1rem 1rem;
+            font-size: 15px;
+            font-weight: 400;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.4scubic -bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 25px rgba(230, 74, 25, 0.4);
+            margin-bottom: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+            z-index: 2;
+            letter-spacing: 0.2px;
+            max-width: 100%;
+        }
+
+        .filter-buttons-box button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px #774e065e;
+            animation: hvr-wobble-skew 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+        }
+
+        .filter-buttons-box {
+            display: flex;
+            gap: 20px;
+        }
+        .select-box span {
+    font-size: 14px;
+    font-weight: 300 !important;
+}
+.filter-search-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 5px;
+}
+.select-box {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+        @keyframes hvr-wobble-skew {
+            16.65% {
+                -webkit-transform: skew(-12deg);
+                transform: skew(-12deg);
+            }
+
+            33.3% {
+                -webkit-transform: skew(10deg);
+                transform: skew(10deg);
+            }
+
+            49.95% {
+                -webkit-transform: skew(-6deg);
+                transform: skew(-6deg);
+            }
+
+            66.6% {
+                -webkit-transform: skew(4deg);
+                transform: skew(4deg);
+            }
+
+            83.25% {
+                -webkit-transform: skew(-2deg);
+                transform: skew(-2deg);
+            }
+
+            100% {
+                -webkit-transform: skew(0);
+                transform: skew(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 #9e650287;
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px #9e65020b
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 #9e65020f;
+            }
+        }
+
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .form-section {
+                flex: auto;
+                padding: 2rem;
+            }
+
+            .image-section {
+                flex: auto;
+                height: 300px;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .question {
+                font-size: 1rem;
+            }
+            .search-box input {
+    width: 150px;
+}
+.table {
+    overflow-x: scroll;
+}
+.table-box1 table {
+    min-width: 800px;
+}
+            
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cursor-follower"></div>
+
+    <div class="main-container">
+        <div class="background-image"></div>
+        <div class="background-overlay"></div>
+
+        <div class="container">
+            <div class="table-main-container">
+                <div class="table-box">
+                    <h1>Resale Flate Price</h1>
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th colspan="2">Search Results</th>
+                            </tr>
+                            <tr>
+                                <td>HDB Town</td>
+                                <td>ANG MO KIO</td>
+                            </tr>
+                            <tr>
+                                <td>Flat Type</td>
+                                <td>2 ROOM</td>
+                            </tr>
+                            <tr>
+                                <td>Street Name</td>
+                                <td>ANG MO KIO AVE 1</td>
+                            </tr>
+                            <tr>
+                                <td>Block Number</td>
+                                <td>101</td>
+                            </tr>
+                            <tr>
+                                <td>Resale Registration Date</td>
+                                <td>Nov 2023 To Apr 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Total number of records found</td>
+                                <td>23 (05 Oct 2024)</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="table-box1">
+                    <div class="filter-wrapper">
+                        <div class="filter-buttons-box">
+                            <button>Your Book</button>
+                            <button>Your Custer</button>
+                        </div>
+                        <div class="filter-search-box">
+                            <div class="select-box">
+                                <span>Show</span>
+                                <select name="project-name" id="project-name">
+                                    <option value="Choose Town" selected>0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                </select>
+                                <span>Entire</span>
+                            </div>
+                            <div class="search-box">
+                                <input class="search-field" type="search" placeholder=" ⌕ search here" name="search" id="search">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table">
+                        <table>
+                            <tr>
+                                <th>Sold Price</th>
+                                <th>Sold Month</th>
+                                <th>Address</th>
+                                <th>Area</th>
+                                <th>Level</th>
+                                <th>Remaining Lease</th>
+                            </tr>
+                            <tr>
+                                <td>$265,000</td>
+                                <td>Dec 2023</td>
+                                <td>508, ANG MO KIO AVE 8</td>
+                                <td>44 sqm</td>
+                                <td>01 TO 03</td>
+                                <td>55 years 06 months</td>
+                            </tr>
+                            <tr>
+                                <td>$278,000</td>
+                                <td>Nov 2023</td>
+                                <td>116, ANG MO KIO AVE 4</td>
+                                <td>44 sqm</td>
+                                <td>07 TO 09</td>
+                                <td>53 years 07 months</td>
+                            </tr>
+                            <tr>
+                                <td>$285,000</td>
+                                <td>Feb 2024</td>
+                                <td>406, ANG MO KIO AVE 10</td>
+                                <td>44 sqm</td>
+                                <td>01 TO 03</td>
+                                <td>54 years 04 months</td>
+                            </tr>
+                            <tr>
+                                <td>$288,000</td>
+                                <td>Jun 2024</td>
+                                <td>314, ANG MO KIO AVE 3</td>
+                                <td>44 sqm</td>
+                                <td>04 TO 06</td>
+                                <td>52 years 08 months</td>
+                            </tr>
+                            <tr>
+                                <td>$288,000</td>
+                                <td>Apr 2024</td>
+                                <td>314, ANG MO KIO AVE 3</td>
+                                <td>44 sqm</td>
+                                <td>01 TO 03</td>
+                                <td>52 years 10 months</td>
+                            </tr>
+                            <tr>
+                                <td>$288,000</td>
+                                <td>Jan 2024</td>
+                                <td>116, ANG MO KIO AVE 4</td>
+                                <td>44 sqm</td>
+                                <td>07 TO 09</td>
+                                <td>53 years 06 months</td>
+                            </tr>
+                            <tr>
+                                <td>$288,000</td>
+                                <td>Dec 2023</td>
+                                <td>323, ANG MO KIO AVE 3</td>
+                                <td>44 sqm</td>
+                                <td>01 TO 03</td>
+                                <td>52 years 06 months</td>
+                            </tr>
+                            <tr>
+                                <td>$293,000</td>
+                                <td>Feb 2024</td>
+                                <td>323, ANG MO KIO AVE 3</td>
+                                <td>44 sqm</td>
+                                <td>04 TO 06</td>
+                                <td>52 years 05 months</td>
+                            </tr>
+                            <tr>
+                                <td>$295,000</td>
+                                <td>Sep 2024</td>
+                                <td>314, ANG MO KIO AVE 3</td>
+                                <td>44 sqm</td>
+                                <td>01 TO 03</td>
+                                <td>52 years 05 months</td>
+                            </tr>
+                            <tr>
+                                <td>$295,000</td>
+                                <td>Nov 2023</td>
+                                <td>406, ANG MO KIO AVE 10</td>
+                                <td>44 sqm</td>
+                                <td>07 TO 09</td>
+                                <td>54 years 07 months</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cursor follower effect
+        function initCursorFollower() {
+            const follower = document.querySelector('.cursor-follower');
+            let mouseX = 0, mouseY = 0;
+            let followerX = 0, followerY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                follower.style.opacity = '1';
+            });
+
+            function animate() {
+                // Smooth following with easing
+                followerX += (mouseX - followerX) * 0.1;
+                followerY += (mouseY - followerY) * 0.1;
+
+                if (follower) {
+                    follower.style.left = `${followerX}px`;
+                    follower.style.top = `${followerY}px`;
+                }
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+            // Hide follower when mouse leaves window
+            document.addEventListener('mouseleave', () => {
+                follower.style.opacity = '0';
+            });
+
+            document.addEventListener('mouseenter', () => {
+                follower.style.opacity = '1';
+            });
+        }
+
+
+    </script>
+</body>
+
+</html>
