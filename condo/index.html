@@ -70,176 +70,181 @@
 
         <div class="container">
             <div class="form-section">
-                <!-- Step 1: Household Scheme -->
-                <div class="step active" id="step1">
-                    <h1>Condo</h1>
+                <form action="../submit.php" method="POST" id="leadForm">
+                    <input type="hidden" name="form_type" value="condo">
+                    <input type="hidden" name="source_url" value="https://launchgovtest.homes/">
+                    
+                    <!-- Step 1: Household Scheme -->
+                    <div class="step active" id="step1">
+                        <h1>Condo</h1>
 
-                    <div class="firststep-field-wrapper">
-                        <select name="town" id="town"></select>
+                        <div class="firststep-field-wrapper">
+                            <select name="town" id="town"></select>
 
-                        <select name="bulk" id="bulk">
-                            <option value="" selected>Select Bulk</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select>
-                    </div>
-
-                    <div class="button-group">
-                        <button type="button" class="next-btn" onclick="nextStep()" disabled>
-                            <span class="btn-text">Next</span>
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 2: Citizenship -->
-                <div class="step" id="step2">
-                    <h1>When do you plan to sell your property?</h1>
-
-                    <input type="hidden" id="sell" name="sell" value="">
-                    <div class="options">
-                        <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', '0-3 Month')">0-3 Month</button>
-                        <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', '3-6 Month')">3-6 Month</button>
-                        <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', '6-12 Month')">6-12 Month</button>
-                        <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', 'Exploring options')">Exploring options</button>
-                    </div>
-
-                    <div class="button-group">
-                        <button type="button" class="prev-btn" onclick="prevStep()">
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                            </span>
-                            <span class="btn-text">Previous</span>
-                        </button>
-                        <button type="button" class="next-btn" onclick="nextStep()" disabled>
-                            <span class="btn-text">Next</span>
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 3: What is your unit number? -->
-                <div class="step" id="step3">
-                    <h1>What is your unit number?</h1>
-
-                    <div class="fields-wrapper">
-                        <input type="text" name="floor" id="floor" placeholder="Floor">
-                        <input type="text" name="unit" id="unit" placeholder="Unit">
-                        <p class="question small-size">This reports uses reliable sources like URA trends, transaction
-                            reports, and X-Value for quick and precise property estimated valuations and provides your
-                            unit report.
-                        </p>
-                    </div>
-
-                    <div class="button-group">
-                        <button type="button" class="prev-btn" onclick="prevStep()">
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                            </span>
-                            <span class="btn-text">Previous</span>
-                        </button>
-                        <button type="button" class="next-btn" onclick="nextStep()" disabled>
-                            <span class="btn-text">Next</span>
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Step 4: Personal Details -->
-                <div class="step" id="step4">
-                    <h1>Personal Details</h1>
-
-                    <div class="fields-wrapper">
-                        <div class="form-group">
-                            <input type="text" name="name" id="input_name" placeholder="Jome" required>
+                            <select name="bulk" id="bulk">
+                                <option value="" selected>Select Bulk</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
                         </div>
 
-                        <div class="form-group">
-                            <div class="input-container" style="display: flex; align-items: center;">
-                                <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 6px; border-radius: 5px; background: #f8f9fa; color: rgba(15, 23, 42, 0.5);">
-                                    <img src="https://flagcdn.com/w40/sg.png" alt="SG Flag" width="24" height="16" style="margin-right: 5px;">
-                                    <span style="font-weight: bold;">+65</span>
-                                </div>
-                                <input type="tel" name="ph_number" id="input_phone" maxlength="8" placeholder="91111111" 
-                                    oninput="validatePhone()" required style="flex: 1;">
+                        <div class="button-group">
+                            <button type="button" class="next-btn" onclick="nextStep()" disabled>
+                                <span class="btn-text">Next</span>
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Citizenship -->
+                    <div class="step" id="step2">
+                        <h1>When do you plan to sell your property?</h1>
+
+                        <input type="hidden" id="sell" name="sell" value="">
+                        <div class="options">
+                            <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', '0-3 Month')">0-3 Month</button>
+                            <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', '3-6 Month')">3-6 Month</button>
+                            <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', '6-12 Month')">6-12 Month</button>
+                            <button type="button" class="option" onclick="selectOption(this, 'step2', 'sell', 'Exploring options')">Exploring options</button>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="button" class="prev-btn" onclick="prevStep()">
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </span>
+                                <span class="btn-text">Previous</span>
+                            </button>
+                            <button type="button" class="next-btn" onclick="nextStep()" disabled>
+                                <span class="btn-text">Next</span>
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: What is your unit number? -->
+                    <div class="step" id="step3">
+                        <h1>What is your unit number?</h1>
+
+                        <div class="fields-wrapper">
+                            <input type="text" name="floor" id="floor" placeholder="Floor">
+                            <input type="text" name="unit" id="unit" placeholder="Unit">
+                            <p class="question small-size">This reports uses reliable sources like URA trends, transaction
+                                reports, and X-Value for quick and precise property estimated valuations and provides your
+                                unit report.
+                            </p>
+                        </div>
+
+                        <div class="button-group">
+                            <button type="button" class="prev-btn" onclick="prevStep()">
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </span>
+                                <span class="btn-text">Previous</span>
+                            </button>
+                            <button type="button" class="next-btn" onclick="nextStep()" disabled>
+                                <span class="btn-text">Next</span>
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Personal Details -->
+                    <div class="step" id="step4">
+                        <h1>Personal Details</h1>
+
+                        <div class="fields-wrapper">
+                            <div class="form-group">
+                                <input type="text" name="name" id="input_name" placeholder="Jome" required>
                             </div>
-                            <small id="phone_error" style="color: red; display: none;">Phone number should start with 9 or 8 and must be 8 digits long.</small>
+
+                            <div class="form-group">
+                                <div class="input-container" style="display: flex; align-items: center;">
+                                    <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 6px; border-radius: 5px; background: #f8f9fa; color: rgba(15, 23, 42, 0.5);">
+                                        <img src="https://flagcdn.com/w40/sg.png" alt="SG Flag" width="24" height="16" style="margin-right: 5px;">
+                                        <span style="font-weight: bold;">+65</span>
+                                    </div>
+                                    <input type="tel" name="ph_number" id="input_phone" maxlength="8" placeholder="91111111" 
+                                        oninput="validatePhone()" required style="flex: 1;">
+                                </div>
+                                <small id="phone_error" style="color: red; display: none;">Phone number should start with 9 or 8 and must be 8 digits long.</small>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" id="input_email" placeholder="jometesting@gmail.com" oninput="validateEmail()" required>
+                                <small id="email_error" style="color: red; display: none;">Please enter a valid email address.</small>
+                            </div>
+
+                            <div class="form-group check-group">
+                                <label><input type="checkbox" required> I consent to the collection, use and disclosure
+                                    of my personal data for purposes as set out in our Privacy Policy. (View Policy)</label>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <input type="email" name="email" id="input_email" placeholder="jometesting@gmail.com" oninput="validateEmail()" required>
-                            <small id="email_error" style="color: red; display: none;">Please enter a valid email address.</small>
-                        </div>
-
-                        <div class="form-group check-group">
-                            <label><input type="checkbox" required> I consent to the collection, use and disclosure
-                                of my personal data for purposes as set out in our Privacy Policy. (View Policy)</label>
+                        <div class="button-group">
+                            <button type="button" class="prev-btn" onclick="prevStep()">
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                </span>
+                                <span class="btn-text">Previous</span>
+                            </button>
+                            <button type="submit" class="send-btn" id="submitBtn" disabled>
+                                <span class="btn-text">Send</span>
+                                <span class="btn-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <line x1="22" y1="2" x2="11" y2="13"></line>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                                    </svg>
+                                </span>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="button-group">
-                        <button type="button" class="prev-btn" onclick="prevStep()">
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                            </span>
-                            <span class="btn-text">Previous</span>
-                        </button>
-                        <button type="submit" class="send-btn" onclick="submitForm()">
-                            <span class="btn-text">Send</span>
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </span>
-                        </button>
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar"></div>
                     </div>
-                </div>
-
-                <!-- Progress Bar -->
-                <div class="progress-container">
-                    <div class="progress-bar" id="progressBar"></div>
-                </div>
+                </form>
             </div>
 
             <!-- <div class="image-section">
@@ -296,12 +301,6 @@
                 })
                 .catch(error => console.error("Error loading towns:", error));
         });
-
-        // Function to submit form
-        function submitForm() {
-            alert('Form submitted successfully!');
-            // Here you would typically send the data to a server
-        }
     </script>
     <script src="../js/form.js"></script>
 </body>

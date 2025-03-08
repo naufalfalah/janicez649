@@ -169,3 +169,27 @@ function validateEmail() {
         submitBtn.disabled = false;
     }
 }
+
+document.getElementById("leadForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    let formData = new FormData(this);
+
+    try {
+        let response = await fetch(this.action, {
+            method: "POST",
+            body: formData
+        });
+
+        let result = await response.json();
+
+        if (result.status === "success") {
+            window.location.href = "../report/index.html";
+        } else {
+            alert("Error: " + result.message);
+        }
+    } catch (error) {
+        console.error("Request failed", error);
+        alert("Something went wrong!");
+    }
+});
