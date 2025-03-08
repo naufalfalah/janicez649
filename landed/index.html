@@ -9,35 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="stylesheet" href="../css/form.css">
     <style>
-        /* :root {
-            --primary: #ff5722;
-            --primary-dark: #e64a19;
-            --accent: #ff9800;
-            --dark: #002D6C;
-            
-            --text: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.7);
-            --glass-bg: rgba(44, 62, 80, 0.7);
-        } */
-        :root {
-            --primary: #9e6402;
-            --primary-dark: #774d06;
-            --accent: #b48431;
-            --dark: #774d06;
-            /* Updated background color */
-            --text: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.7);
-            --glass-bg: rgba(44, 62, 80, 0.7);
-        }
-
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: 'Outfit', sans-serif;
             background-color: var(--dark);
@@ -46,53 +19,11 @@
             overflow-x: hidden;
             overflow-y: hidden;
             min-height: 100vh;
-            background-image: url(https://janicez641.sg-host.com/assets/images/landed-bg.jpg);
+            background-image: url('https://janicez641.sg-host.com/assets/images/landed-bg.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             background-attachment: fixed;
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            /* background: radial-gradient(circle, rgba(255, 87, 34, 0.2) 0%, rgba(255, 152, 0, 0.1) 50%, rgba(38, 50, 56, 0) 70%); */
-            background: radial-gradient(circle, #774e065a 0%, #b4843128 50%, #774e0600 70%);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            transition: transform 0.2s ease-out, opacity 0.3s ease;
-            opacity: 0;
-        }
-
-        .main-container {
-            position: relative;
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            display: flex;
-            width: 100%;
-            max-width: 1400px;
-            margin: 40px;
-            background: rgba(15, 23, 42, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .background-image {
@@ -106,413 +37,6 @@
             background-position: center;
             filter: contrast(1.1) brightness(0.7);
             z-index: -2;
-        }
-
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg,
-                    rgba(15, 23, 42, 0.5) 0%,
-                    rgba(15, 23, 42, 0.5) 100%);
-            z-index: -1;
-        }
-
-        .form-section {
-            flex: 1;
-            padding: 3rem;
-            display: flex;
-            flex-direction: column;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            background: rgba(15, 23, 42, 0.5);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .form-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            z-index: 2;
-        }
-
-        .image-section {
-            flex: 1.2;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .image-section img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1s ease;
-        }
-
-        .image-section:hover img {
-            transform: scale(1.05);
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, #fff 0%, var(--text) 80%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 2px;
-        }
-
-        .question {
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 1.5rem;
-        }
-
-        .options {
-            display: grid;
-            grid-template-columns: 2fr 2fr;
-            gap: 12px;
-            margin-bottom: 2rem;
-        }
-
-        .option {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 14px 18px;
-            font-size: 1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* .option::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--primary), var(--accent));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        } */
-
-        /* .option:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border-color: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-        } */
-        .option:hover {
-            border-color: var(--dark);
-            /* margin-top: -5px;
-    margin-bottom: 5px; */
-            box-shadow: 0 0px 8px #b4843129;
-            transform: translateY(-5px);
-        }
-
-        /* .option:hover::before {
-            opacity: 1;
-        } */
-
-        .option.selected {
-            background: linear-gradient(90deg, #774e06a1, #b48431cc);
-            color: white;
-            border-color: #774e0625;
-            box-shadow: 0 5px 15px #774e060f;
-            transform: translateY(-3px);
-        }
-
-        .option.selected::before {
-            opacity: 0;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 4rem;
-        }
-
-        .step h1 {
-            margin-bottom: 5rem;
-        }
-
-        .prev-btn,
-        .next-btn,
-        .send-btn {
-            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--accent) 100%);
-            color: var(--text);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 12px;
-            padding: 12px 25px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .prev-btn::before,
-        .next-btn::before,
-        .send-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--accent) 100%);
-            transition: all 0.5s ease;
-            z-index: 1;
-        }
-
-        .prev-btn:hover,
-        .next-btn:hover,
-        .send-btn:hover {
-            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--accent) 100%);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px #774e068a;
-            border-color: #774e0635;
-        }
-
-        .prev-btn:hover::before,
-        .next-btn:hover::before,
-        .send-btn:hover::before {
-            left: 100%;
-        }
-
-        .send-btn {
-            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--accent) 100%);
-            color: white;
-            border: none;
-            box-shadow: 0 8px 25px #774e068a;
-            animation: pulse 2s infinite;
-        }
-
-        /* @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
-            }
-
-            70% {
-                box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
-            }
-        } */
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 #9e650287;
-            }
-
-            70% {
-                box-shadow: 0 0 0 15px #9e65020b
-            }
-
-            100% {
-                box-shadow: 0 0 0 0 #9e65020f;
-            }
-        }
-
-        .send-btn:hover {
-            background: linear-gradient(90deg, var(--primary-dark) 0%, var(--accent) 100%);
-        }
-
-        .btn-text {
-            position: relative;
-            z-index: 2;
-        }
-
-        .btn-icon {
-            position: relative;
-            z-index: 2;
-        }
-
-        .step {
-            display: none;
-            animation: fadeIn 0.5s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .step.active {
-            display: flex;
-            flex-direction: column;
-            min-height: auto;
-            height: auto;
-        }
-
-        .user-activity {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-radius: 12px;
-            padding: 12px 18px;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .user-activity:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .user-icon {
-            width: 38px;
-            height: 38px;
-            /* background: linear-gradient(135deg, #e64b19 0%, #ef6411 100%); */
-            background: linear-gradient(135deg, var(--dark) 0%, var(--accent) 100%);
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-right: 12px;
-            color: white;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-
-        .user-activity:hover .user-icon {
-            transform: rotate(10deg);
-        }
-
-        .user-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-name {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--text);
-        }
-
-        .user-status {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .progress-container {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            z-index: 5;
-        }
-
-        .progress-bar {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transition: width 0.5s ease;
-        }
-
-        .firststep-field-wrapper,
-        .fields-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 1rem;
-        }
-
-        .firststep-field-wrapper select {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(7px);
-            -webkit-backdrop-filter: blur(7px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 18px;
-            font-size: 1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            /* transition: all 0.3scubic -bezier(0.34, 1.56, 0.64, 1); */
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            background: url(https://i.ibb.co/ZpN6TZKy/down-arrow.png);
-            background-position: right 10px center;
-            background-size: 16px;
-            padding-right: 30px;
-            background-repeat: no-repeat;
-            transition: all 0.3s ease;
-        }
-
-
-        .firststep-field-wrapper select:hover {
-            border-color: var(--dark);
-            /* margin-top: -5px;
-    margin-bottom: 5px; */
-            box-shadow: 0 0px 8px #b4843129;
-            transform: translateY(-5px);
-        }
-
-
-        .firststep-field-wrapper select:focus {
-            outline: none;
-            border-color: var(--accent);
-            /* margin-top: -5px;
-    margin-bottom: 5px; */
-            box-shadow: 0 0px 8px #b4843129;
-            transform: translateY(-5px);
         }
 
         .fields-wrapper input {
@@ -531,113 +55,10 @@
             overflow: hidden;
         }
 
-        .fields-wrapper input:focus-visible {
-            outline: 1px var(--accent) solid;
-        }
-
-        p.question.small-size {
-            font-size: 0.8rem;
-            color: #ffffff8a;
-        }
-
         .firststep-field-wrapper select option {
             color: #fff;
             background: #13192A;
         }
-
-        input#mobile-number {
-            padding-left: 63px;
-            background-image: url(https://i.ibb.co/4nvFGCJK/Group-1-15.png);
-            background-size: 52px 20px;
-            background-repeat: no-repeat;
-            background-position: 5px center;
-        }
-        /* .form-container {
-            background-color: #d6deed;
-            padding: 20px;
-            border-radius: 8px;
-            width: 400px;
-        } */
-
-        .checkbox-container {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(7px);
-            --webkit-backdrop-filter: blur(7px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 18px;
-            font-size: 1rem;
-            color: var(--text-muted);
-            cursor: pointer;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-            appearance: none;
-            --webkit-appearance: none;
-            --moz-appearance: none;
-            /* background: url(https://i.ibb.co/ZpN6TZKy/down-arrow.png); */
-            background-position: right 10px center;
-            background-size: 16px;
-            padding-right: 30px;
-            background-repeat: no-repeat;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .checkbox-container:hover{
-            border-color: var(--dark);
-            box-shadow: 0 0px 8px #b4843129;
-            transform: translateY(-5px);
-        }
-        
-
-        .checkbox-container input {
-            margin-right: 10px;
-        }
-
-        .section-title {
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        @media (max-width: 992px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .form-section {
-                flex: auto;
-                padding: 2rem;
-            }
-
-            .image-section {
-                flex: auto;
-                height: 300px;
-            }
-            
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                margin: 20px;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            h1 {
-                font-size: 1.8rem;
-            }
-
-            .question {
-                font-size: 1rem;
-            }
-
-            
-        }
-        
     </style>
 </head>
 
@@ -653,36 +74,13 @@
                 <!-- Step 1: Please select the street -->
                 <div class="step active" id="step1">
                     <h1>Please Select the Street</h1>
-                    <!-- <p class="question">Who will be included in your EC purchase?</p> -->
-
-                    <!-- <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step1')">Yourself + fiancé/fiancée</button>
-                        <button class="option" onclick="selectOption(this, 'step1')">Yourself + spouse</button>
-                        <button class="option" onclick="selectOption(this, 'step1')">Yourself + parents</button>
-                        <button class="option" onclick="selectOption(this, 'step1')">Yourself + child under legal custody</button>
-                        <button class="option" onclick="selectOption(this, 'step1')">Yourself + up to 3 other singles (all 35 and above)</button>
-                        <button class="option" onclick="selectOption(this, 'step1')">Yourself + orphaned sibling(s)</button>
-                    </div> -->
 
                     <div class="firststep-field-wrapper">
-                        <select name="street" id="street" required>
-                            <option value="Choose Street" selected disabled hidden>Choose Your Street</option>
-                            <option value="ZEHNDER ROAD">ZEHNDER ROAD</option>
-                            <option value="NEO PEE TECK LANE">NEO PEE TECK LANE</option>
-                            <option value="YONG SIAK STREET">YONG SIAK STREET</option>
-                        </select>
-
-                        <!-- <select name="bulk" id="bulk">
-                            <option value="Bulk" selected>Bulk</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                        </select> -->
+                        <select name="street" id="street" required></select>
                     </div>
 
                     <div class="button-group">
-                        <button class="next-btn" onclick="nextStep()">
+                        <button type="button" class="next-btn" onclick="nextStep()" disabled>
                             <span class="btn-text">Next</span>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -699,22 +97,13 @@
                 <!-- Step 2: Your sqf -->
                 <div class="step" id="step2">
                     <h1>Enter Property Size (sqft)</h1>
-                    <!-- <p class="question">Does your household include a Singapore Citizen?</p> -->
-
-                    <!-- <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step2')">0-3 Month</button>
-                        <button class="option" onclick="selectOption(this, 'step2')">3-6 Month</button>
-                        <button class="option" onclick="selectOption(this, 'step2')">6-12 Month</button>
-                        <button class="option" onclick="selectOption(this, 'step2')">Exploring options</button>
-                    </div> -->
 
                     <div class="fields-wrapper">
                         <input type="text" name="sqft" id="sqft" placeholder="Your Sqft" required>
-
                     </div>
 
                     <div class="button-group">
-                        <button class="prev-btn" onclick="prevStep()">
+                        <button type="button" class="prev-btn" onclick="prevStep()" disabled>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -725,7 +114,7 @@
                             </span>
                             <span class="btn-text">Previous</span>
                         </button>
-                        <button class="next-btn" onclick="nextStep()">
+                        <button type="button" class="next-btn" onclick="nextStep()" disabled>
                             <span class="btn-text">Next</span>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -743,15 +132,13 @@
                 <div class="step" id="step3">
                     <h1>I Would Like to Know</h1>
                     <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step3')">Past transactions report around the street</button>
-                        <button class="option" onclick="selectOption(this, 'step3')">My estimated selling price</button>
-                        <button class="option" onclick="selectOption(this, 'step3')">Get a gauge how much buyer are willing to offer</button>
+                        <button type="button" class="option" onclick="selectOption(this, 'step3')">Past transactions report around the street</button>
+                        <button type="button" class="option" onclick="selectOption(this, 'step3')">My estimated selling price</button>
+                        <button type="button" class="option" onclick="selectOption(this, 'step3')">Get a gauge how much buyer are willing to offer</button>
                     </div>
-                
-                
 
                     <div class="button-group">
-                        <button class="prev-btn" onclick="prevStep()">
+                        <button type="button" class="prev-btn" onclick="prevStep()" disabled>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -762,7 +149,7 @@
                             </span>
                             <span class="btn-text">Previous</span>
                         </button>
-                        <button class="next-btn" onclick="nextStep()">
+                        <button type="button" class="next-btn" onclick="nextStep()" disabled>
                             <span class="btn-text">Next</span>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -780,16 +167,14 @@
                 <div class="step" id="step4">
                     <h1>What Are Your Plans</h1>
                     <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step4')">Downsize</button>
-                        <button class="option" onclick="selectOption(this, 'step4')">Change of location</button>
-                        <button class="option" onclick="selectOption(this, 'step4')">Upgrade</button>
-                        <button class="option" onclick="selectOption(this, 'step4')">Cash out</button>
+                        <button type="button" class="option" onclick="selectOption(this, 'step4')">Downsize</button>
+                        <button type="button" class="option" onclick="selectOption(this, 'step4')">Change of location</button>
+                        <button type="button" class="option" onclick="selectOption(this, 'step4')">Upgrade</button>
+                        <button type="button" class="option" onclick="selectOption(this, 'step4')">Cash out</button>
                     </div>
                 
-                
-
                     <div class="button-group">
-                        <button class="prev-btn" onclick="prevStep()">
+                        <button type="button" class="prev-btn" onclick="prevStep()" disabled>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -800,7 +185,7 @@
                             </span>
                             <span class="btn-text">Previous</span>
                         </button>
-                        <button class="next-btn" onclick="nextStep()">
+                        <button type="button" class="next-btn" onclick="nextStep()" disabled>
                             <span class="btn-text">Next</span>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -817,26 +202,36 @@
                 <!-- Step 5: Personal Details -->
                 <div class="step" id="step5">
                     <h1>Personal Details</h1>
-                    <!-- <p class="question">Is your combined household income below $16,000?</p> -->
-
-                    <!-- <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step4')">Yes</button>
-                        <button class="option" onclick="selectOption(this, 'step4')">No</button>
-                    </div> -->
 
                     <div class="fields-wrapper">
-                        <input type="text" name="name" id="name" placeholder="Jome">
-                        <input type="text" id="mobile-number" maxlength="8" placeholder="91111111" name="ph_number"
-                            inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');" required="">
-                        <input type="email" placeholder="jometesting@gmail.com" required="">
+                        <div class="form-group">
+                            <input type="text" name="name" id="input_name" placeholder="Jome" required>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-container" style="display: flex; align-items: center;">
+                                <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 6px; border-radius: 5px; background: #f8f9fa; color: rgba(15, 23, 42, 0.5);">
+                                    <img src="https://flagcdn.com/w40/sg.png" alt="SG Flag" width="24" height="16" style="margin-right: 5px;">
+                                    <span style="font-weight: bold;">+65</span>
+                                </div>
+                                <input type="tel" name="ph_number" id="input_phone" maxlength="8" placeholder="91111111" 
+                                    oninput="validatePhone()" required style="flex: 1;">
+                            </div>
+                            <small id="phone_error" style="color: red; display: none;">Phone number should start with 9 or 8 and must be 8 digits long.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="email" name="email" id="input_email" placeholder="jometesting@gmail.com" oninput="validateEmail()" required>
+                            <small id="email_error" style="color: red; display: none;">Please enter a valid email address.</small>
+                        </div>
 
                         <div class="form-group check-group">
-                            <label><input type="checkbox" required=""> By submitting your personal information, you consent to us using it to contact you regarding your home valuation request. Your data will not be sold and will only be shared with our trusted consultants to provide your home unit report and related services.(View Policy)</label>
+                            <label><input type="checkbox" required> By submitting your personal information, you consent to us using it to contact you regarding your home valuation request. Your data will not be sold and will only be shared with our trusted consultants to provide your home unit report and related services.(View Policy)</label>
                         </div>
                     </div>
 
                     <div class="button-group">
-                        <button class="prev-btn" onclick="prevStep()">
+                        <button type="button" class="prev-btn" onclick="prevStep()" disabled>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -847,7 +242,7 @@
                             </span>
                             <span class="btn-text">Previous</span>
                         </button>
-                        <button class="send-btn" onclick="submitForm()">
+                        <button type="button" class="send-btn" onclick="submitForm()" disabled>
                             <span class="btn-text">Send</span>
                             <span class="btn-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
@@ -860,103 +255,6 @@
                         </button>
                     </div>
                 </div>
-
-                <!-- Step 5: HDB Ownership Status -->
-                <!-- <div class="step" id="step5">
-                    <h1>HDB Ownership Status</h1>
-                    <p class="question">Do you or any co-applicants currently own an HDB flat that has completed the Minimum Occupation Period (MOP)?</p>
-                    
-                    <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step5')">Yes, MOP completed</button>
-                        <button class="option" onclick="selectOption(this, 'step5')">No, do not own any HDB</button>
-                        <button class="option" onclick="selectOption(this, 'step5')">Yes, still within MOP</button>
-                    </div>
-                    
-                    <div class="button-group">
-                        <button class="prev-btn" onclick="prevStep()">
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                            </span>
-                            <span class="btn-text">Previous</span>
-                        </button>
-                        <button class="next-btn" onclick="nextStep()">
-                            <span class="btn-text">Next</span>
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                </div> -->
-
-                <!-- Step 6: Private Property Ownership -->
-                <!-- <div class="step" id="step6">
-                    <h1>Private Property Ownership in the Last 30 Months</h1>
-                    <p class="question">Have you or any co-applicants owned or disposed of any private property in the past 30 months?</p>
-                    
-                    <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step6')">Yes</button>
-                        <button class="option" onclick="selectOption(this, 'step6')">No</button>
-                    </div>
-                    
-                    <div class="button-group">
-                        <button class="prev-btn" onclick="prevStep()">
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                            </span>
-                            <span class="btn-text">Previous</span>
-                        </button>
-                        <button class="next-btn" onclick="nextStep()">
-                            <span class="btn-text">Next</span>
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                    <polyline points="12 5 19 12 12 19"></polyline>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                </div> -->
-
-                <!-- Step 7: First-Time Applicant -->
-                <!-- <div class="step" id="step7">
-                    <h1>First-Time Applicant</h1>
-                    <p class="question">Is this your first application for an HDB/EC property?</p>
-                    
-                    <div class="options">
-                        <button class="option" onclick="selectOption(this, 'step7')">Yes</button>
-                        <button class="option" onclick="selectOption(this, 'step7')">No</button>
-                    </div>
-                    
-                    <div class="button-group">
-                        <button class="prev-btn" onclick="prevStep()">
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="19" y1="12" x2="5" y2="12"></line>
-                                    <polyline points="12 19 5 12 12 5"></polyline>
-                                </svg>
-                            </span>
-                            <span class="btn-text">Previous</span>
-                        </button>
-                        <button class="send-btn" onclick="submitForm()">
-                            <span class="btn-text">Send</span>
-                            <span class="btn-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </span>
-                        </button>
-                    </div>
-                </div> -->
 
                 <!-- Progress Bar -->
                 <div class="progress-container">
@@ -985,43 +283,6 @@
     </div>
 
     <script>
-        // Cursor follower effect
-        function initCursorFollower() {
-            const follower = document.querySelector('.cursor-follower');
-            let mouseX = 0, mouseY = 0;
-            let followerX = 0, followerY = 0;
-
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                follower.style.opacity = '1';
-            });
-
-            function animate() {
-                // Smooth following with easing
-                followerX += (mouseX - followerX) * 0.1;
-                followerY += (mouseY - followerY) * 0.1;
-
-                if (follower) {
-                    follower.style.left = `${followerX}px`;
-                    follower.style.top = `${followerY}px`;
-                }
-
-                requestAnimationFrame(animate);
-            }
-
-            animate();
-
-            // Hide follower when mouse leaves window
-            document.addEventListener('mouseleave', () => {
-                follower.style.opacity = '0';
-            });
-
-            document.addEventListener('mouseenter', () => {
-                follower.style.opacity = '1';
-            });
-        }
-
         // Current step
         let currentStep = 1;
         const totalSteps = 5;
@@ -1037,76 +298,29 @@
             element.classList.add('selected');
         }
 
-        // Function to navigate to next step
-        function nextStep() {
-            if (currentStep < totalSteps) {
-                document.getElementById(`step${currentStep}`).classList.remove('active');
-                currentStep++;
-                document.getElementById(`step${currentStep}`).classList.add('active');
-
-                // Update user info based on current step
-                updateUserInfo();
-
-                // Update progress bar
-                updateProgressBar();
-            }
-        }
-
-        // Function to navigate to previous step
-        function prevStep() {
-            if (currentStep > 1) {
-                document.getElementById(`step${currentStep}`).classList.remove('active');
-                currentStep--;
-                document.getElementById(`step${currentStep}`).classList.add('active');
-
-                // Update user info based on current step
-                updateUserInfo();
-
-                // Update progress bar
-                updateProgressBar();
-            }
-        }
-
-        // Function to update user info based on current step
-        function updateUserInfo() {
-            const userNameElement = document.getElementById('userName');
-
-            if (currentStep === 1) {
-                userNameElement.textContent = 'Muhammad Faris Bin Zulkifli';
-            } else if (currentStep === 2) {
-                userNameElement.textContent = 'Brandon Ng Jia Hao';
-            } else if (currentStep === 3) {
-                userNameElement.textContent = 'Brandon Ng Jia Hao';
-            } else if (currentStep === 4) {
-                userNameElement.textContent = 'Emily Tan Wei Ling';
-            } else if (currentStep === 5) {
-                userNameElement.textContent = 'Emily Tan Wei Ling';
-            } else if (currentStep === 6) {
-                userNameElement.textContent = 'Brandon Ng Jia Hao';
-            } else if (currentStep === 7) {
-                userNameElement.textContent = 'Muhammad Faris Bin Zulkifli';
-            }
-        }
-
-        // Function to update progress bar
-        function updateProgressBar() {
-            const progressBar = document.getElementById('progressBar');
-            const progressPercentage = (currentStep / totalSteps) * 100;
-            progressBar.style.width = `${progressPercentage}%`;
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("../util_data.php?action=getProjects")
+                .then(response => response.json())
+                .then(data => {
+                    const streetSelect = document.getElementById("street");
+                    streetSelect.innerHTML = '<option value="">Select Street</option>';
+                    data.forEach(item => {
+                        let option = document.createElement("option");
+                        option.value = item.street;
+                        option.textContent = item.street;
+                        streetSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error("Error loading towns:", error));
+        });
 
         // Function to submit form
         function submitForm() {
             alert('Form submitted successfully!');
             // Here you would typically send the data to a server
         }
-
-        // Initialize effects and progress bar on page load
-        window.addEventListener('DOMContentLoaded', () => {
-            initCursorFollower();
-            updateProgressBar();
-        });
     </script>
+    <script src="../js/form.js"></script>
 </body>
 
 </html>
