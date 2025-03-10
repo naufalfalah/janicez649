@@ -93,7 +93,7 @@ try {
         ':otp' => $otp,
         ':is_expired' => 0
     ]);
-    // sendWpMessage('+971551120500', $message);
+    sendWpMessage('+971551120500', $message);
 
     echo json_encode([
         "success" => true,

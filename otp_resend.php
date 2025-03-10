@@ -38,7 +38,7 @@ try {
     }
 
     $message = "Your OTP code is: $otp";
-    // sendWpMessage($phone, $message);
+    sendWpMessage($phone, $message);
 
     error_log("New OTP for $leadId: $otp");
 

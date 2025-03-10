@@ -53,7 +53,7 @@ try {
     $lead = $fetchStmt->fetch(PDO::FETCH_ASSOC);
 
     if ($lead) {
-        // sendLeadToDiscord($lead);
+        sendLeadToDiscord($lead);
     } else {
         echo json_encode([
             'success' => false,
