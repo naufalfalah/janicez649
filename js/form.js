@@ -237,14 +237,13 @@ function validatePhone() {
     phoneInput.value = phoneInput.value.replace(/\D/g, '');
 
     let phonePattern = /^[89]\d{7}$/; // Starts with 8 or 9 and has 8 digits
-
     if (!phonePattern.test(phoneInput.value)) {
-        errorMsg.style.display = "block";
+        errorMsg.innerHTML = 'Phone number should start with 9 or 8 and must be 8 digits long.';
         return false;
-    } else {
-        errorMsg.style.display = "none";
-        return true;
     }
+
+    errorMsg.innerHTML = '';
+    return true;
 }
 
 function validateEmail() {
@@ -253,14 +252,13 @@ function validateEmail() {
 
     // Email validation pattern
     let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
     if (!emailPattern.test(emailInput.value)) {
-        errorMsg.style.display = "block";
+        errorMsg.innerHTML = 'Please enter a valid email address.';
         return false;
-    } else {
-        errorMsg.style.display = "none";
-        return true;
     }
+    
+    errorMsg.innerHTML = '';
+    return true;
 }
 
 function checkOtpButton() {
@@ -279,28 +277,27 @@ function checkOtpButton() {
 
 function validateOtp() {
     let input = document.getElementById("input_otp");
-    let errorMsg = document.getElementById("email_error");
+    let errorMsg = document.getElementById("otp_error");
 
     if (!input) {
         errorMsg.innerHTML = 'Please enter the OTP.';
-        errorMsg.style.display = "block";
         return false;
     }
 
-    errorMsg.style.display = "none";
+    errorMsg.innerHTML = "";
     return true;
 }
 
 function checkSubmitButton() {
     const submitBtn = document.getElementById("submitBtn");
 
-    if (validateOtp()) {
-        submitBtn.disabled = false;
-        return;
-    } else {
+    if (!validateOtp()) {
         submitBtn.disabled = true;
         return;
     }
+    
+    submitBtn.disabled = false;
+    return;
 }
 
 let isSendingOtp = false;

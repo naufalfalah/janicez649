@@ -270,19 +270,19 @@
                                         <button type="button" class="otp-button" id="resendOtpBtn" style="display: none;" onclick="resendOtp()" disabled>Resend Code</button>
                                     </div>
                                 </div>
-                                <small id="phone_error" style="color: red; display: none;">Phone number should start with 9 or 8 and must be 8 digits long.</small>
+                                <small class="message-error" id="phone_error"></small>
                             </div>
 
                             <div class="form-group">
                                 <input type="email" name="email" id="input_email" placeholder="jometesting@gmail.com" oninput="checkOtpButton()" required>
-                                <small id="email_error" style="color: red; display: none;">Please enter a valid email address.</small>
+                                <small class="message-error" id="email_error"></small>
                             </div>
 
                             <div id="otpContainer" style="display: none; margin-top: 15px; margin-bottom: 15px;">
                                 <div class="form-group">
                                     <label for="input_otp">Enter OTP</label>
                                     <input type="text" id="input_otp" class="form-control" name="otp" placeholder="______" maxlength="6" oninput="checkSubmitButton()" required>
-                                    <small id="otp_error" style="color: red; display: none;">Invalid OTP. Please try again.</small>
+                                    <small class="message-error" id="otp_error"></small>
                                 </div>
 
                                 <p class="otp-info">We've sent a 6-digit code to your registered phone number.</p>
