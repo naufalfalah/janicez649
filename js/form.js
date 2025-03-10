@@ -133,6 +133,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const steps = document.querySelectorAll('.step');
 
     steps.forEach(step => {
+        if (step.classList.contains('step-unique')) {
+            return;
+        }
+
         const nextBtn = step.querySelector('.next-btn');
         if (!nextBtn) return;
 
@@ -163,13 +167,13 @@ function validateFloor() {
     let errorMsg = document.getElementById("floor_error");
 
     if (!floor) {
-        errorMsg.innerHTML = 'Please enter a floor number';
+        // errorMsg.innerHTML = 'Please enter a floor number';
         return false;
     }
 
     if (isNaN(floor)) {
         errorMsg.innerHTML = 'Only numeric values are allowed.';
-        isValid = false;
+        return false;
     }
 
     if (parseInt(floor) >= 50) {
@@ -177,19 +181,53 @@ function validateFloor() {
         return false;
     }
 
+    errorMsg.innerHTML = '';
     return true;
 }
 
 function validateUnit() {
-    let unit = document.getElementById("unit");
+    let unit = document.getElementById("unit").value.trim();
     let errorMsg = document.getElementById("unit_error");
+
+    if (!unit) {
+        // errorMsg.innerHTML = 'Please enter an unit';
+        return false;
+    }
 
     if (!/^\d{2,4}$/.test(unit)) {
         errorMsg.innerHTML = 'Please enter a number between 2 and 4 digits.';
         return false;
     }
 
+    errorMsg.innerHTML = '';
     return true;
+}
+
+function checkStepValidation(step) {
+    let nextButton;
+
+    if (step == 'floorUnitStep') {
+        nextButton = document.getElementById("floorUnitStep");
+
+        if (validateFloor() && validateUnit()) {
+            nextButton.disabled = false;
+            return;
+        } else {
+            nextButton.disabled = true;
+            return;
+        }
+    }
+    
+    if (step == 'postalCodeStep') {
+        nextButton = document.getElementById("postalCodeStep");
+
+        // if (validateFloor() && validateUnit()) {
+        //     nextButton.disabled = true;
+        // } else {
+        //     nextButton.disabled = false;
+        // }
+    }
+    return;
 }
 
 function validatePhone() {
@@ -310,7 +348,7 @@ async function sendOtp() {
         });
 
         const data = await response.json();
-        console.log('data', data);
+        // console.log('data', data);
         if (data.success) {
             // alert('Lead saved and OTP sent successfully!');
             sessionStorage.setItem('lead_id', data.lead_id);
@@ -352,7 +390,7 @@ async function resendOtp() {
         });
 
         const data = await response.json();
-        console.log('data', data);
+        // console.log('data', data);
         if (data.success) {
             const resendOtpBtn = document.getElementById("resendOtpBtn");
             resendOtpBtn.disabled = true;
@@ -400,7 +438,7 @@ async function verifyOtp(event) {
         });
 
         const data = await response.json();
-        console.log('data', data);
+        // console.log('data', data);
         if (data.success) {
             otpError.style.display = "none";
             document.getElementById("leadForm").submit();

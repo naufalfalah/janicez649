@@ -144,12 +144,19 @@
                     </div>
 
                     <!-- Step 3: What is your unit number? -->
-                    <div class="step" id="step3">
+                    <div class="step step-unique" id="step3">
                         <h1>What is your unit number?</h1>
 
                         <div class="fields-wrapper">
-                            <input type="text" name="floor" id="floor" placeholder="Floor">
-                            <input type="text" name="unit" id="unit" placeholder="Unit">
+                            <div class="form-group">
+                                <input type="text" name="floor" id="floor" placeholder="Floor" oninput="checkStepValidation('floorUnitStep')">
+                                <small id="floor_error" style="color: red;"></small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" name="unit" id="unit" placeholder="Unit" oninput="checkStepValidation('floorUnitStep')">
+                                <small id="unit_error" style="color: red;"></small>
+                            </div>
                             <p class="question small-size">This reports uses reliable sources like URA trends, transaction
                                 reports, and X-Value for quick and precise property estimated valuations and provides your
                                 unit report.
@@ -168,7 +175,7 @@
                                 </span>
                                 <span class="btn-text">Previous</span>
                             </button>
-                            <button type="button" class="next-btn" onclick="nextStep()" disabled>
+                            <button type="button" class="next-btn" onclick="nextStep()" id="floorUnitStep" disabled>
                                 <span class="btn-text">Next</span>
                                 <span class="btn-icon">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
