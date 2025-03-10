@@ -71,7 +71,7 @@
 
         <div class="container">
             <div class="form-section">
-                <form action="../submit.php" method="POST" id="leadForm">
+                <form action="../redirect.php" id="leadForm" method="POST" onsubmit="return verifyOtp(event)">
                     <input type="hidden" name="form_type" value="landed">
                     <input type="hidden" name="source_url" value="https://launchgovtest.homes/">
 
@@ -138,9 +138,9 @@
                         
                         <input type="hidden" id="like_to_know" name="like_to_know" value="">
                         <div class="options">
-                            <button type="button" class="option" onclick="selectOption(this, 'step3', 'like_to_know', 'Past transactions report around the street')">Past transactions report around the street</button>
-                            <button type="button" class="option" onclick="selectOption(this, 'step3', 'like_to_know', 'My estimated selling price')">My estimated selling price</button>
-                            <button type="button" class="option" onclick="selectOption(this, 'step3', 'like_to_know', 'Get a gauge how much buyer are willing to offer')">Get a gauge how much buyer are willing to offer</button>
+                            <button type="button" class="option" onclick="toggleOption(this, 'step3', 'like_to_know')" data-value="Past transactions report around the street">Past transactions report around the street</button>
+                            <button type="button" class="option" onclick="toggleOption(this, 'step3', 'like_to_know')" data-value="My estimated selling price">My estimated selling price</button>
+                            <button type="button" class="option" onclick="toggleOption(this, 'step3', 'like_to_know')" data-value="Get a gauge how much buyer are willing to offer">Get a gauge how much buyer are willing to offer</button>
                         </div>
     
                         <div class="button-group">
@@ -210,12 +210,12 @@
                     <!-- Step 5: Personal Details -->
                     <div class="step" id="step5">
                         <h1>Personal Details</h1>
-    
+
                         <div class="fields-wrapper">
                             <div class="form-group">
                                 <input type="text" name="name" id="input_name" placeholder="Jome" required>
                             </div>
-    
+
                             <div class="form-group">
                                 <div class="input-container" style="display: flex; align-items: center;">
                                     <div style="display: flex; align-items: center; border: 1px solid #ccc; padding: 6px; border-radius: 5px; background: #f8f9fa; color: rgba(15, 23, 42, 0.5);">
@@ -223,14 +223,32 @@
                                         <span style="font-weight: bold;">+65</span>
                                     </div>
                                     <input type="tel" name="ph_number" id="input_phone" maxlength="8" placeholder="91111111" 
-                                        oninput="validatePhone()" required style="flex: 1;">
+                                        oninput="checkOtpButton()" required style="flex: 1;">
+                                    <div class="otp-button-group">
+                                        <button type="button" class="otp-button" id="sendOtpBtn" onclick="sendOtp()" disabled>Get Code</button>
+                                        <button type="button" class="otp-button" id="resendOtpBtn" style="display: none;" onclick="resendOtp()" disabled>Resend Code</button>
+                                    </div>
                                 </div>
                                 <small id="phone_error" style="color: red; display: none;">Phone number should start with 9 or 8 and must be 8 digits long.</small>
                             </div>
-    
+
                             <div class="form-group">
-                                <input type="email" name="email" id="input_email" placeholder="jometesting@gmail.com" oninput="validateEmail()" required>
+                                <input type="email" name="email" id="input_email" placeholder="jometesting@gmail.com" oninput="checkOtpButton()" required>
                                 <small id="email_error" style="color: red; display: none;">Please enter a valid email address.</small>
+                            </div>
+
+                            <div id="otpContainer" style="display: none; margin-top: 15px; margin-bottom: 15px;">
+                                <div class="form-group">
+                                    <label for="input_otp">Enter OTP</label>
+                                    <input type="text" id="input_otp" class="form-control" name="otp" placeholder="______" maxlength="6" oninput="checkSubmitButton()" required>
+                                    <small id="otp_error" style="color: red; display: none;">Invalid OTP. Please try again.</small>
+                                </div>
+
+                                <p class="otp-info">We've sent a 6-digit code to your registered phone number.</p>
+
+                                <div class="resend-container" style="margin-top: 5px;">
+                                    <span id="resendTimer">00:30</span>
+                                </div>
                             </div>
     
                             <div class="form-group check-group">
@@ -295,20 +313,6 @@
         // Current step
         let currentStep = 1;
         const totalSteps = 5;
-
-        // Function to select an option
-        function selectOption(element, stepId, inputName, inputValue) {
-            // Remove 'selected' class from all options in this step
-            document.querySelectorAll(`#${stepId} .option`).forEach(option => {
-                option.classList.remove('selected');
-            });
-
-            // Add 'selected' class to clicked option
-            element.classList.add('selected');
-
-            // Set value
-            document.querySelector(`[name="${inputName}"]`).value = inputValue;
-        }
 
         document.addEventListener("DOMContentLoaded", function() {
             fetch("../util_data.php?action=getProjects")

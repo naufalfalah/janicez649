@@ -101,7 +101,35 @@ window.addEventListener('DOMContentLoaded', () => {
     updateProgressBar();
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+// Function to select an option
+function selectOption(element, stepId, inputName, inputValue) {
+    // Remove 'selected' class from all options in this step
+    document.querySelectorAll(`#${stepId} .option`).forEach(option => {
+        option.classList.remove('selected');
+    });
+
+    // Add 'selected' class to clicked option
+    element.classList.add('selected');
+
+    // Set value
+    document.querySelector(`[name="${inputName}"]`).value = inputValue;
+}
+
+// Function to select multiple options (checkbox behavior)
+function toggleOption(element, stepId, inputName,) {
+    // Toggle 'selected' class on clicked option
+    element.classList.toggle('selected');
+
+    // Get all selected options inside this step
+    const selectedOptions = Array.from(document.querySelectorAll(`#${stepId} .option.selected`));
+
+    const selectedValues = selectedOptions.map(option => option.getAttribute('data-value'));
+
+    document.querySelector(`[name="${inputName}"]`).value = selectedValues.join(',');
+}
+
+// All step required validation
+document.addEventListener('DOMContentLoaded', function () {
     const steps = document.querySelectorAll('.step');
 
     steps.forEach(step => {
@@ -117,28 +145,56 @@ document.addEventListener('DOMContentLoaded', function() {
 
         function checkInputs() {
             const allFilled = Array.from(inputs).every(i => {
+                // console.log('i', i)
                 if (i.matches('.option')) {
                     return step.querySelector('.option.selected') !== null;
                 }
                 return i.value.trim() !== '';
             });
+            // console.log('allFilled', allFilled)
 
             nextBtn.disabled = !allFilled;
         }
     });
 });
 
-function checkSubmit() {
-    let name = document.getElementById('input_name').value.trim();
-    let phone = document.getElementById('input_phone').value.trim();
-    let email = document.getElementById('input_email').value.trim();
-    document.getElementById('submitBtn').disabled = !(name && phone && email);
+function validateFloor() {
+    let floor = document.getElementById('floor').value.trim();
+    let errorMsg = document.getElementById("floor_error");
+
+    if (!floor) {
+        errorMsg.innerHTML = 'Please enter a floor number';
+        return false;
+    }
+
+    if (isNaN(floor)) {
+        errorMsg.innerHTML = 'Only numeric values are allowed.';
+        isValid = false;
+    }
+
+    if (parseInt(floor) >= 50) {
+        errorMsg.innerHTML = 'Please enter a floor number less than 50.';
+        return false;
+    }
+
+    return true;
+}
+
+function validateUnit() {
+    let unit = document.getElementById("unit");
+    let errorMsg = document.getElementById("unit_error");
+
+    if (!/^\d{2,4}$/.test(unit)) {
+        errorMsg.innerHTML = 'Please enter a number between 2 and 4 digits.';
+        return false;
+    }
+
+    return true;
 }
 
 function validatePhone() {
     let phoneInput = document.getElementById("input_phone");
     let errorMsg = document.getElementById("phone_error");
-    let submitBtn = document.getElementById("submitBtn");
 
     phoneInput.value = phoneInput.value.replace(/\D/g, '');
 
@@ -146,50 +202,214 @@ function validatePhone() {
 
     if (!phonePattern.test(phoneInput.value)) {
         errorMsg.style.display = "block";
-        submitBtn.disabled = true;
+        return false;
     } else {
         errorMsg.style.display = "none";
-        submitBtn.disabled = false;
+        return true;
     }
 }
 
 function validateEmail() {
     let emailInput = document.getElementById("input_email");
     let errorMsg = document.getElementById("email_error");
-    let submitBtn = document.getElementById("submitBtn");
 
     // Email validation pattern
     let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (!emailPattern.test(emailInput.value)) {
         errorMsg.style.display = "block";
-        submitBtn.disabled = true;
+        return false;
     } else {
         errorMsg.style.display = "none";
-        submitBtn.disabled = false;
+        return true;
     }
 }
 
-document.getElementById("leadForm").addEventListener("submit", async function(event) {
-    event.preventDefault();
+function checkOtpButton() {
+    const otpButtons = document.getElementsByClassName("otp-button");
 
-    let formData = new FormData(this);
+    if (validatePhone() && validateEmail()) {
+        for (let btn of otpButtons) {
+            btn.disabled = false;
+        }
+    } else {
+        for (let btn of otpButtons) {
+            btn.disabled = true;
+        }
+    }
+}
 
+function validateOtp() {
+    let input = document.getElementById("input_otp");
+    let errorMsg = document.getElementById("email_error");
+
+    if (!input) {
+        errorMsg.innerHTML = 'Please enter the OTP.';
+        errorMsg.style.display = "block";
+        return false;
+    }
+
+    errorMsg.style.display = "none";
+    return true;
+}
+
+function checkSubmitButton() {
+    const submitBtn = document.getElementById("submitBtn");
+
+    if (validateOtp()) {
+        submitBtn.disabled = false;
+        return;
+    } else {
+        submitBtn.disabled = true;
+        return;
+    }
+}
+
+let isSendingOtp = false;
+let isResendingOtp = false;
+let resendCountdown = 120;
+let resendInterval;
+
+function startResendTimer() {
+    const resendBtn = document.getElementById("resendOtpBtn");
+    const resendTimer = document.getElementById("resendTimer");
+
+    resendBtn.disabled = true;
+    resendCountdown = 5;
+    resendTimer.textContent = `02:00`;
+
+    resendInterval = setInterval(() => {
+        resendCountdown--;
+        const minutes = Math.floor(resendCountdown / 60);
+        const seconds = resendCountdown % 60;
+        resendTimer.textContent = `${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+        if (resendCountdown <= 0) {
+            clearInterval(resendInterval);
+            resendBtn.disabled = false;
+            resendTimer.textContent = "";
+        }
+    }, 1000);
+}
+
+async function sendOtp() {
+    if (isSendingOtp) return;
+    isSendingOtp = true;
+
+    const form = document.getElementById("leadForm");
+    const formData = new FormData(form);
+    const urlEncodedData = new URLSearchParams(formData).toString();
+  
     try {
-        let response = await fetch(this.action, {
-            method: "POST",
-            body: formData
+        const response = await fetch('../otp_send.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: urlEncodedData
         });
 
-        let result = await response.json();
+        const data = await response.json();
+        console.log('data', data);
+        if (data.success) {
+            // alert('Lead saved and OTP sent successfully!');
+            sessionStorage.setItem('lead_id', data.lead_id);
 
-        if (result.status === "success") {
-            window.location.href = "../report/index.html";
+            const otpContainer = document.getElementById("otpContainer");
+            otpContainer.style.display = 'block';
+            const sendOtpBtn = document.getElementById("sendOtpBtn");
+            sendOtpBtn.style.display = 'none';
+            const resendOtpBtn = document.getElementById("resendOtpBtn");
+            resendOtpBtn.style.display = 'block';
+            startResendTimer();
         } else {
-            alert("Error: " + result.message);
+            alert('Failed to process request: ' + data.message);
         }
     } catch (error) {
-        console.error("Request failed", error);
-        alert("Something went wrong!");
+        console.error('Error:', error);
+        alert('An error occurred while processing the request.');
     }
-});
+}
+
+async function resendOtp() {
+    if (isResendingOtp) return;
+    isResendingOtp = true;
+
+    const leadId = sessionStorage.getItem('lead_id');
+    if (!leadId) {
+        alert("Lead ID is missing!");
+        isResendingOtp = false;
+        return;
+    }
+
+    try {
+        const response = await fetch('../otp_resend.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `lead_id=${encodeURIComponent(leadId)}`
+        });
+
+        const data = await response.json();
+        console.log('data', data);
+        if (data.success) {
+            const resendOtpBtn = document.getElementById("resendOtpBtn");
+            resendOtpBtn.disabled = true;
+
+            // alert('OTP has been resent!');
+            startResendTimer();
+        } else {
+            alert('Failed to resend OTP: ' + data.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while resending OTP.');
+    } finally {
+        isSendingOtp = false;
+    }
+}
+
+async function verifyOtp(event) {
+    event.preventDefault();
+
+    const otpInput = document.getElementById("input_otp");
+    const otpError = document.getElementById("otp_error");
+    const otp = otpInput.value.trim();
+
+    const leadId = sessionStorage.getItem('lead_id');
+    if (!leadId) {
+        alert("Lead ID is missing!");
+        isResendingOtp = false;
+        return;
+    }
+
+    if (!otp) {
+        otpError.style.display = "block";
+        otpError.textContent = "Verify your code first!";
+        return;
+    }
+
+    try {
+        const response = await fetch('../otp_verify.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `lead_id=${encodeURIComponent(leadId)}&otp=${encodeURIComponent(otp)}`
+        });
+
+        const data = await response.json();
+        console.log('data', data);
+        if (data.success) {
+            otpError.style.display = "none";
+            document.getElementById("leadForm").submit();
+        } else {
+            otpError.style.display = "block";
+            otpError.textContent = data.message || "Invalid OTP. Please try again.";
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred while verifying OTP. Please try again.');
+    }
+}

@@ -489,6 +489,38 @@ input#input_phone {
     font-size: 16px;
 }
 
+.otp-button {
+    margin-left: 10px;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 100%;
+}
+.input-container input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+}
+.input-container button {
+    border-radius: 5px;
+    padding: 10px;
+    border: none;
+    background-color: var(--accent);
+    color: white;
+    cursor: pointer;
+}
+.input-container button:disabled {
+    color: var(--primary);
+    font-size: medium;
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
 @media (max-width: 992px) {
     .container {
         flex-direction: column;
