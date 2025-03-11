@@ -310,7 +310,7 @@ function startResendTimer() {
     const resendTimer = document.getElementById("resendTimer");
 
     resendBtn.disabled = true;
-    resendCountdown = 5;
+    resendCountdown = 120;
     resendTimer.textContent = `02:00`;
 
     resendInterval = setInterval(() => {
