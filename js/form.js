@@ -349,6 +349,7 @@ async function sendOtp() {
         if (data.success) {
             // alert('Lead saved and OTP sent successfully!');
             sessionStorage.setItem('lead_id', data.lead_id);
+            document.getElementById("lead_id").value = data.lead_id;
 
             const otpContainer = document.getElementById("otpContainer");
             otpContainer.style.display = 'block';

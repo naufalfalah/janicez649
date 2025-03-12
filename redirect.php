@@ -18,6 +18,25 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-safe_redirect("report/index.html");
+$formType = $_POST['form_type'];
+$leadId = $_POST['lead_id'];
+
+switch ($formType) {
+    case 'condo':
+        safe_redirect("report/condo.php?lead_id=" . urlencode($leadId));
+        break;
+
+    case 'hdb':
+        safe_redirect("report/hdb.php?lead_id=" . urlencode($leadId));
+        break;
+
+    case 'landed':
+        safe_redirect("report/landed.php?lead_id=" . urlencode($leadId));
+        break;
+
+    default:
+        safe_redirect("");
+        break;
+}
 
 ?>

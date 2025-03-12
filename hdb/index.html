@@ -80,12 +80,13 @@
                 <form action="../redirect.php" id="leadForm" method="POST" onsubmit="return verifyOtp(event)">
                     <input type="hidden" name="form_type" value="hdb">
                     <input type="hidden" name="source_url" value="https://launchgovtest.homes/">
+                    <input type="hidden" name="lead_id" id="lead_id" value="">
                     
                     <!-- Step 2: Select Town to See Available Flat Types -->
                     <div class="step active" id="step2">
                         <h1>Where is your HDB located?</h1>
                         <div class="fields-wrapper">
-                            <select name="project_name" id="project_name"></select>
+                            <select name="town" id="town"></select>
                         </div>
     
                         <div class="button-group">
@@ -353,16 +354,16 @@
         const totalSteps = 7;
 
         document.addEventListener("DOMContentLoaded", function() {
-            fetch("../util_data.php?action=getProjects")
+            fetch("../util_data.php?action=getTowns")
                 .then(response => response.json())
                 .then(data => {
-                    const projectSelect = document.getElementById("project_name");
-                    projectSelect.innerHTML = '<option value="">Select Project</option>';
+                    const townSelect = document.getElementById("town");
+                    townSelect.innerHTML = '<option value="">Select Town</option>';
                     data.forEach(item => {
                         let option = document.createElement("option");
-                        option.value = item.project;
-                        option.textContent = item.project;
-                        projectSelect.appendChild(option);
+                        option.value = item.town;
+                        option.textContent = item.town;
+                        townSelect.appendChild(option);
                     });
                 })
                 .catch(error => console.error("Error loading towns:", error));
