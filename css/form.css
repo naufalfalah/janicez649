@@ -446,14 +446,6 @@ p.question.small-size {
     color: #ffffff8a;
 }
 
-input#input_phone {
-    margin-left: 10px;
-    background-image: url('https://i.ibb.co/4nvFGCJK/Group-1-15.png');
-    background-size: 52px 20px;
-    background-repeat: no-repeat;
-    background-position: 5px center;
-}
-
 .form-group {
     display: flex;
     flex-direction: column;

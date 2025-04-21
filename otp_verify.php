@@ -60,7 +60,6 @@ try {
             'message' => 'Lead not found after update',
         ]);
         exit();
-    
     }
 
     echo json_encode([
